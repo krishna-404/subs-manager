@@ -1,0 +1,22 @@
+.DS_Store
+node_modules
+.turbo
+*.log
+dist-ssr
+*.local
+.env
+.cache
+server/dist
+public/dist
+# server & web build
+dist
+
+# vite
+dev-dist
+
+tsconfig.tsbuildinfo
+
+# cypress
+screenshots
+videos
+downloads
