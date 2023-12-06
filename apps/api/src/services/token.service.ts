@@ -39,8 +39,8 @@ export const getAccessToken = (user: T_TokenObj, maxExpiryDate?: string | Date) 
   };
 
   return {
-    token: jwt.sign(payload, envConfig.JWT_SECRET),
-    expires: tokenExpiryDate.toISOString()
+    access_token: jwt.sign(payload, envConfig.JWT_SECRET),
+    access_token_expires: tokenExpiryDate.toISOString()
   };
 };
 

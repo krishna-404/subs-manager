@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { RhfSubmitButton, RhfTextField, useFormPersistent } from "mui-components-tezi";
 import { toast } from "react-toastify";
+import { T_User_Insert } from "../../../../api/src/db/schemas";
 import { toastErrorSettings, toastSuccessSettings } from "../../config";
 import useResponsive from "../../hooks/useResponsive";
 import { trpcFetch } from "../../trpc/trpcFetch";
@@ -15,14 +16,14 @@ export const Signup = () => {
 
   const {
     FormProvider, ...methods
-  } = useFormPersistent<any>({
+  } = useFormPersistent<T_User_Insert>({
     defaultValues,
     // resolver: zodResolver(userInsertSchema)
   });
 
   const { getValues, handleSubmit, setError } = methods;
 
-  const onSubmit = (latestDoc: any) => {
+  const onSubmit = (latestDoc: T_User_Insert) => {
     console.log({latestDoc});
 
     const submitAction = trpcFetch.auth.signup.mutate(latestDoc);

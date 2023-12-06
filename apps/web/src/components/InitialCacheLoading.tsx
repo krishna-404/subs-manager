@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { localdbStoresObj } from "../clientDb/localDb";
+import { LocalDB, localdbStoresObj } from "../clientDb/localDb";
 import { useWatchLocalStorage } from "../hooks/useWatchLocalStorage";
-import { allCacheLastUpdateTimeCache, cacheLastUpdateCache } from "../utils/localCacheApi";
+import { trpcFetch } from "../trpc/trpcFetch";
+import { allCacheLastUpdateTimeCache, cacheLastUpdateCache, devCompanyCache } from "../utils/localCacheApi";
 
 const cacheInitialState = { 
   dev_company: {lastUpdateTime: 0, label: "Dev Company"},
@@ -13,14 +14,14 @@ const cacheInitialState = {
 export type T_CacheLastUpdateTimes = typeof cacheInitialState;
 
 const checkCacheIsLatest = (tableType: keyof typeof localdbStoresObj) => {
-  // const localDBCount = LocalDB[tableType].count();
-  // const localMaxUpdatedAt = LocalDB[tableType]
-  //   .orderBy('updated_at').last();
+  const localDBCount = LocalDB[tableType].count();
+  const localMaxUpdatedAt = LocalDB[tableType]
+    .orderBy('updated_at').last();
 
-  // const remoteDataState = trpcFetch[tableType].countAndMaxUpdatedAt.query();
+  const remoteDataState = trpcFetch[tableType].countAndMaxUpdatedAt.query();
 
-  // return Promise.all([localDBCount, localMaxUpdatedAt, remoteDataState])
-  //   .then(values => (values[0]===values[2].count && values[1]?.updated_at===values[2].max_updated_at))
+  return Promise.all([localDBCount, localMaxUpdatedAt, remoteDataState])
+    .then(values => (values[0]===values[2].count && values[1]?.updated_at===values[2].max_updated_at))
 };
 
 const updateLocalStoreTime = (key: keyof T_CacheLastUpdateTimes) => {
@@ -40,7 +41,6 @@ const updateLocalStoreTime = (key: keyof T_CacheLastUpdateTimes) => {
 };
 
 export const checkAndUpdateCache = (tableType: keyof typeof localdbStoresObj) => checkCacheIsLatest(tableType)
-  /*
   .then(async(isLatest) => {
     // If not latest, Fetch fresh data & update the localdb.
     if(!isLatest) {
@@ -58,7 +58,6 @@ export const checkAndUpdateCache = (tableType: keyof typeof localdbStoresObj) =>
     updateLocalStoreTime(tableType);
     return;
   });
-  */
 
 export const InitialCacheLoading = () => {
   const cacheLastUpdateTimes = useWatchLocalStorage<T_CacheLastUpdateTimes>('cacheLastUpdateTimes', cacheInitialState);
@@ -71,7 +70,6 @@ export const InitialCacheLoading = () => {
 
   const updateLocalCache = async () => {
     // setting devcompany
-      /*
       if(!propertyUpdatedInLast5Min('dev_company')) {
         await trpcFetch.project.findFirst.query({
           columns: {},
@@ -86,18 +84,15 @@ export const InitialCacheLoading = () => {
             }
           }
         }).then(devCo => {
-          devCompanyCache.createOrUpdate(devCo)
+          devCompanyCache.createOrUpdate(devCo?.dev_company)
           updateLocalStoreTime('dev_company');
           return;
         });
       };
-      */
 
     // setting data from local-db
-      /*
       if(!propertyUpdatedInLast5Min('og')) await checkAndUpdateCache('og');
       if(!propertyUpdatedInLast5Min('project')) await checkAndUpdateCache('project');
-      */
       return;
 
   };

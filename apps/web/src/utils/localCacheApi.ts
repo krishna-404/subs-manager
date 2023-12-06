@@ -1,3 +1,4 @@
+import { T_DevCo_Select } from "../../../api/src/db/schemas";
 import { T_CacheLastUpdateTimes } from "../components/InitialCacheLoading";
 import { defaultThemeSettings } from "../config";
 import { RouterOutputs } from "../trpc/trpc";
@@ -44,11 +45,13 @@ export const clearLocalCache = () => {
 export type localCacheItems = {
   allCacheLastUpdateTime: number;
   cacheLastUpdateTimes: T_CacheLastUpdateTimes;
+  devCompany: Pick<T_DevCo_Select, 'id' | 'name'>;
   themeSettings: typeof defaultThemeSettings;
   userObj: Omit<RouterOutputs['auth']['login'], 'token'>;
 };
 
 export const allCacheLastUpdateTimeCache = new LocalCacheAPI<localCacheItems['allCacheLastUpdateTime']>('allCacheLastUpdateTime');
+export const devCompanyCache = new LocalCacheAPI<localCacheItems['devCompany']>('devCompany');
 export const cacheLastUpdateCache = new LocalCacheAPI<localCacheItems['cacheLastUpdateTimes']>('cacheLastUpdateTimes');
 export const themeSettingsCache = new LocalCacheAPI<localCacheItems['themeSettings']>('themeSettings');
 export const userObjCache = new LocalCacheAPI<localCacheItems['userObj']>('userObj');
@@ -56,6 +59,7 @@ export const userObjCache = new LocalCacheAPI<localCacheItems['userObj']>('userO
 export const localCacheFunctions = {
   allCacheLastUpdateTime: allCacheLastUpdateTimeCache,
   cacheLastUpdateTimes: cacheLastUpdateCache,
+  devCompany: devCompanyCache,
   themeSettings: themeSettingsCache,
   userObj: userObjCache
 }

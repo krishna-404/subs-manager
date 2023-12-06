@@ -6,6 +6,7 @@ import { customUseForm } from "mui-components-tezi/rhf/useForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { T_Login } from "../../../../api/src/db/schemas";
 import exclude from '../../../../api/src/utils/exclude';
 import { isRemote, toastSuccessSettings } from "../../config";
 import { trpcFetch } from "../../trpc/trpcFetch";
@@ -17,12 +18,12 @@ export const LoginForm = ({isDesktop}: {isDesktop: boolean | null}) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const {FormProvider, ...methods} = customUseForm<any>({
+  const {FormProvider, ...methods} = customUseForm<T_Login>({
     // resolver: zodResolver(loginSchema),
   });
   const {handleSubmit, setError} = methods;
   
-  const onSubmit = (latestDoc: any /*T_Login*/) => {
+  const onSubmit = (latestDoc: T_Login) => {
       
     // console.log({latestDoc});
     const submitAction = trpcFetch.auth.login.mutate(latestDoc);

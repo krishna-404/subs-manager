@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 import { LocalDB } from "../clientDb/localDb";
+import { toastErrorSettings, toastSuccessSettings } from "../config";
 import { trpcFetch } from "../trpc/trpcFetch";
 import { clearLocalCache } from "./localCacheApi";
-import { toastErrorSettings, toastSuccessSettings } from "../config";
 
-export const handleLogout = async () => {
+export const handleLogout = () => {
   try {
     console.log("logout attempt");
     const cacheDel = LocalDB.delete().then(localdbDeleteRes => console.log({localdbDeleteRes}));
@@ -14,5 +14,6 @@ export const handleLogout = async () => {
   }
   catch (error: any) {
     toast.error(error?.message, toastErrorSettings);
+    throw error;
   }
 }

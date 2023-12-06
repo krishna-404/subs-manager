@@ -1,16 +1,15 @@
 import http, { Server } from "http";
-
-import app from "./app";
 import envConfig from "./configs/envConfig";
 import logger from "./configs/logger";
+import { HttpServer } from "./core";
 import { dbConnection } from "./db/dbConnection";
 
 let server: Server 
 dbConnection().then((isDbConnected) => {
   if (isDbConnected) {
+    const app = HttpServer.create();
     server = http.createServer(app);
-    const port = envConfig.SERVER_PORT || 3001;
-    server.listen(port, () => console.log(`🚀 Server is live at http://localhost:${envConfig.SERVER_PORT}`));
+    server.listen(envConfig.SERVER_PORT, () => console.log(`🚀 Server is live at http://localhost:${envConfig.SERVER_PORT}`));
   }
   else {
     throw new Error("Database not connected.")

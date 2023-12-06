@@ -16,8 +16,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "config-eslint": "workspace:*",
-    "config-typescript": "*",
     "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.6",
@@ -26,8 +24,12 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.10.3",
+    "@types/pg": "^8.10.9",
     "@types/ua-parser-js": "^0.7.39",
+    "config-eslint": "workspace:*",
+    "config-typescript": "workspace:*",
     "dotenv": "^16.3.1",
+    "drizzle-kit": "^0.20.6",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
@@ -37,12 +39,15 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "drizzle-orm": "^0.29.1",
+    "drizzle-zod": "^0.5.1",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
     "http-status": "^1.7.3",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "pg": "^8.11.3",
     "ua-parser-js": "^1.0.37",
     "winston": "^3.11.0"
   }
