@@ -1,6 +1,9 @@
 {
   "name": "subs-manager-web",
   "private": false,
+  "pwa_short_name": "Subs",
+  "pwa_name": "Subs Manager",
+  "pwa_description": "Subscriptions Manager",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
