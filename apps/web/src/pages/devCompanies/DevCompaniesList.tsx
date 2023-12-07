@@ -2,7 +2,6 @@ import { MenuItem } from "@mui/material";
 import { MRT_ColumnDef, MRT_TableOptions, MaterialReactTable } from 'material-react-table';
 import { DeleteButton } from "mui-components-tezi";
 import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { T_DevCo_Select } from "../../../../api/src/db/schemas";
 import { InternalLink } from "../../components/InternalLink";
@@ -12,12 +11,11 @@ import { trpcFetch } from "../../trpc/trpcFetch";
 
 export const DevCompaniesList = () => {
   
-  const {data: serverData, isLoading, isError, isFetched , failureReason, isPaused, refetch} = trpc.devCompany.getList.useQuery(undefined, {
+  const {data: serverData, refetch} = trpc.devCompany.getList.useQuery(undefined, {
     keepPreviousData: true,
     refetchOnMount: true,
     // networkMode: 'always'
   });
-  const navigate = useNavigate();
 
   const columns: MRT_ColumnDef<T_DevCo_Select>[] = useMemo(() => [
     {
