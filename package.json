@@ -1,5 +1,5 @@
 {
-  "name": "node-react-trpc-monorepo",
+  "name": "subs-manager",
   "private": false,
   "scripts": {
     "build": "turbo build",
